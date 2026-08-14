@@ -1,0 +1,614 @@
+:root{
+  --base-color: #800002;
+  --text-color: white;
+  --background-theme: #FFF3C9;
+  --hover-color: rgb(162, 0, 3, 0.3);
+  --box-shadow-color: rgb(0, 0, 0, 0.7);
+  --border-bottom-color: rgba(255,255,255,0.2);
+  --option-color: #800002;
+}
+body.darkmode{
+  --base-color: #3D4459;
+  --box-color: #3D4459;
+  --text-color: white;
+  --background-theme: #FFF3C9;
+  --hover-color: rgba(87, 96, 130, 0.7);
+  --box-shadow-color: rgb(0, 0, 0, 0.7);
+  --border-bottom-color: rgba(255,255,255,0.2);
+  --option-color: #2d3241;
+}
+
+/* Dark mode: unify box/container backgrounds with navbar */
+body.darkmode .chart-box,
+body.darkmode .badge-modal-content,
+body.darkmode .badge-card,
+body.darkmode .recipe-card,
+body.darkmode .skeleton-card,
+body.darkmode .category-quick-select,
+body.darkmode .search-box,
+body.darkmode .infobox,
+body.darkmode .infobox.register {
+  background: var(--box-color) !important;
+  background-color: var(--box-color) !important;
+}
+
+body.darkmode .search-box .search-input,
+body.darkmode .search-label {
+  color: var(--text-color);
+}
+
+body.darkmode .infobox h1,
+body.darkmode .inputbox,
+body.darkmode .infobox input,
+body.darkmode .inputbox label {
+  color: var(--text-color);
+}
+
+body.darkmode .inputbox {
+  border-bottom-color: var(--text-color);
+}
+
+body.darkmode .login-register #Have-an-account {
+  color: var(--text-color);
+}
+
+body.darkmode .sort-btn {
+  background: var(--box-color);
+}
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body{
+    font-family: "Inria Serif", serif;
+    font-weight: 700;
+    font-style: normal;
+    background-color: var(--background-theme);
+    background-size:cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    min-height: 100vh;
+    overflow-x: hidden;
+}
+.thai{
+    font-family: "IBM Plex Sans Thai Looped", sans-serif;
+    font-weight: 600;
+}
+
+.thaipattaya{
+    font-family: "Pattaya", sans-serif;
+    font-weight: 600;
+}
+
+.NL{
+  background-color:  var(--base-color);
+  border-bottom: 3px solid var(--text-color);
+  box-shadow: 0px 10px 0px var(--base-color);
+}
+.NL > ul{
+  width: 100%;
+  list-style: none;
+  display: flex;
+  align-items: center;
+  list-style: none;
+}
+
+.titlebar{
+  display: flex;
+  justify-content: flex-end;
+  width: 100%;
+}
+
+.NL li{
+  height: 4em;
+  list-style: none;
+}
+
+/* user */
+.NL .linkhref{
+  font-family: "Inria Serif", serif;
+  height: 100%;
+  padding: 0 30px;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 25px;
+  color: var(--text-color);
+}
+.NL .linkhref i{
+  font-size: 1.7rem;
+  width: 30px; 
+  text-align: center;
+}
+.NL  .linkhref span {
+  font-size: 1.7rem;
+}
+/* admin */
+.NL .linkhref.admin{
+  height: 100%;
+  padding: 0 30px;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  color: var(--text-color);
+}
+.NL  .linkhref.admin span {
+  text-align: center;
+  font-size: 1.1rem;
+}
+.NL .titlebar  .linkhref:hover{
+  background-color: var(--hover-color);
+}
+
+
+.NL .sidebar{
+  position: fixed;
+  top: 0; 
+  left: 0;
+  z-index: 5;
+  height: 100vh;
+  width: 250px;
+  background-color: var(--base-color);
+  box-shadow: -10px 0 10px var(--box-shadow-color);
+  list-style: none;
+  display: none;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  box-shadow: 4px 4px 4px var(--box-shadow-color);
+}
+.NL .sidebar .head {
+  width: 100%;
+  margin-bottom: 1em;
+  display: flex;
+  justify-content: flex-end;
+  border-bottom: 3px solid var(--text-color);
+}
+
+.NL .sidebar ul {
+  list-style: none;
+  width: 100%;
+  margin-top: 0px;
+}
+
+.NL .sidebar li {
+  width: 100%;
+  text-align: left;
+  
+}
+
+.NL .sidebar li .icon{
+  padding-left: 10px;
+  transform: translateX(-50%);
+  
+}
+.NL .sidebar a {
+  display: flex;
+  align-items: center;
+  color: var(--text-color);
+  font-family: "Inria Serif", serif;
+}
+
+.NL .sidebar a:hover {
+  background-color: var(--hover-color);
+  border-radius: 10px;
+}
+
+.NL .sidebar .link {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  width: 100%;
+}
+.NL .sidebar .link a {
+  display: flex;
+  align-items: center;
+}
+.NL .sidebar .about {
+  display: flex;
+  padding: 0;
+  margin-top: auto;
+  margin-left: 0;
+  height: 3.5em; /* กำหนดความสูงที่แน่นอนให้ footer */
+  border-top: 3px solid var(--text-color); /* ใช้ border แทน .line2 */
+  display: flex;
+  justify-content: space-between; /* จัดไอคอนซ้ายสุด-ขวาสุด */
+  align-items: center;
+}
+.NL .sidebar .about i{
+  font-size: 1.8rem;
+}
+.NL .menu-button{
+  display: none;
+  cursor: pointer;
+}
+
+i, a{
+      color: var(--text-color);
+      font-size: 1.7rem;
+}
+.NL .login-btn{
+  border-radius: 50px;
+  width: auto;
+  height: 30px;
+  background-color: var(--text-color);
+  box-shadow: 2px 2px 4px var(--hover-color);
+  white-space: nowrap;
+  transition: transform 0.4s linear;
+  color: var(--base-color);
+}
+#theme-switch{
+  margin-left: auto;
+  cursor: pointer;
+}
+.NL .login-btn:hover{
+    transform: translateY(-2px);
+    box-shadow: 0 5px 10px var(--hover-color);
+}
+.NL .logo, .NL .logo a{
+  cursor: default;
+  font-weight: 600;
+  text-decoration: none;
+  color: var(--text-color);
+  font-family: "Pattaya", sans-serif;
+}
+
+
+/* --- Auth Container (ครอบส่วน Login/User) --- */
+.NL .auth-section {
+    display: flex;
+    align-items: center;
+    margin-right: 1em;
+    padding-left: 1em;
+}
+
+
+/* --- User Profile Section --- */
+.NL .user-profile {
+    position: relative; /* เพื่อให้ Dropdown อ้างอิงตำแหน่งจากตรงนี้ */
+    display: flex;
+    align-items: center;
+}
+
+.NL .user-icon {
+    font-size: 2.2rem; /* ขนาดไอคอน */
+    color: var(--text-color);
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.NL .user-icon:hover {
+    transform: scale(1.1);
+    transform: translateY(-2px);
+}
+
+/* --- Dropdown Menu --- */
+.NL .profile-dropdown {
+    position: absolute;
+    top: 70px; /* ระยะห่างจากไอคอนลงมา */
+    right: 0;  /* ชิดขวา */
+    width: 200px;
+    background-color: var(--base-color); /* สีพื้นหลังเมนู (สีน้ำเงินเข้ม) */
+    border-radius: 12px;
+    box-shadow: 0 5px 15px var(--box-shadow-color);
+    padding: 0px 0;
+    z-index: 2; /* ลอยทับทุกอย่าง */
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+
+/* รายการในเมนู */
+.NL .dropdown-item {
+    padding: 12px 20px;
+    color: var(--text-color);
+    cursor: pointer;
+    height: 50px;
+    display: flex;
+    
+    align-items: center;
+    gap: 15px;
+    transition: background 0.2s;
+    font-size: 0.95rem;
+    border-bottom: 1px solid var(--border-bottom-color);
+    
+}
+.NL .profile-dropdown > a{
+  text-decoration: none;
+}
+
+.NL .dropdown-item:hover {
+    background-color: var(--hover-color);
+}
+
+.NL .dropdown-item i {
+    width: 20px;
+}
+
+.NL .logout-item {
+    border-bottom: 0px;
+    color: var(--text-color); /* สีแดงอ่อนสำหรับ Logout */
+}
+
+/* คลาสสำหรับซ่อน element */
+.hidden {
+    display: none !important;
+}
+
+/*Dark*/
+/* จัด layout ให้คำว่า Theme กับปุ่มเลือกอยู่ห่างกัน */
+.theme-item-container {
+    justify-content: space-between; /* ดันปุ่มไปขวาสุด */
+    position: relative; /* เพื่อให้ sub-menu อ้างอิงตำแหน่งได้ */
+}
+
+/* กล่องหุ้มปุ่ม */
+.theme-selector-wrapper {
+    position: relative;
+    margin-left: auto; /* ดันไปขวาสุด */
+}
+
+/* ปุ่ม Trigger (กรอบสี่เหลี่ยมแสดง Light/Dark) */
+.theme-select-trigger {
+    background: transparent;
+    border: 1px solid var(--border-bottom-color);
+    color: var(--text-color);
+    padding: 2px 8px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 0.85rem;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    min-width: 70px;
+    justify-content: space-between;
+}
+
+.theme-select-trigger:hover {
+    border-color: var(--text-color);
+    background: var(--border-bottom-color);
+}
+
+/* เมนูย่อย (Sub-menu) ที่ซ่อนอยู่ */
+.theme-options {
+    position: absolute;
+    top: 100%; /* อยู่ใต้ปุ่ม */
+    right: 0;
+    width: 100%; /* กว้างเท่าปุ่ม Trigger */
+    background-color: var(--option-color); /* สีเดียวกับ dropdown หลัก */
+    border: 1px solid var(--border-bottom-color);
+    border-radius: 5px;
+    margin-top: 5px;
+    overflow: hidden;
+    z-index: 1001;
+    box-shadow: 0 4px 10px var(--box-shadow-color);
+}
+
+/* รายการตัวเลือก (Light/Dark) */
+.theme-option {
+    padding: 5px 10px;
+    color: var(--text-color);
+    font-size: 0.85rem;
+    cursor: pointer;
+    text-align: center;
+}
+
+.theme-option:hover {
+    background-color: var(--border-bottom-color);
+}
+
+
+/*Dark*/
+#theme-switch{
+  padding: 0;
+  border: none;
+  background-color: var(--base-color);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+#theme-switch i:last-child{
+  display: none;
+}
+.darkmode #theme-switch i:first-child{
+  display: none;
+}
+.darkmode #theme-switch i:last-child{
+  display: block;
+}
+
+
+/*Responsive Light*/
+@media(max-width: 768px){
+  .NL .hideOnMobile{
+    display: none;
+  }
+  .NL .menu-button{
+    display: flex;
+    align-items: center;
+    margin-left: 1em;
+  }
+}
+@media(max-width: 500px){
+  body{
+      height: 100dvh;
+  }
+  .NL .sidebar{
+    width: 100%;
+  }
+  i, a{
+      color: var(--text-color);
+      font-size: 1.5rem;
+  }
+}
+@media(max-width: 320px){
+  body{
+        height: 100dvh;
+  }
+  .NL .sidebar{
+    width: 100%;
+  }
+  i, a{
+      color: var(--text-color);
+      font-size: 1.5rem;
+  }
+}
+
+/* Rainbow Rank Animation */
+.rank-rainbow {
+  background: linear-gradient(to right, #ef5350, #f78400, #ffeb3b, #4caf50, #00bcd4, #2196f3, #9c27b0);
+  -webkit-background-clip: text !important;
+  background-clip: text !important;
+  color: transparent !important;
+  display: inline-block;
+  font-weight: 900;
+  text-shadow: none !important;
+  animation: rainbow-animation 3s linear infinite !important;
+  background-size: 400% 100% !important;
+}
+
+@keyframes rainbow-animation {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* GLOBAL CUSTOM SORT DROPDOWN AND SELECT */
+.sort-container, .sort-wrapper {
+    position: relative;
+    display: inline-block;
+}
+
+.sort-container .sort-btn, .sort-wrapper .sort-btn {
+    border-radius: 5px;
+    padding: 6px 10px;
+    border: none;
+    background-color: var(--base-color);
+    color: var(--text-color);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.sort-container .sort-btn i, .sort-wrapper .sort-btn i {
+    color: var(--text-color) !important;
+}
+
+.sort-dropdown {
+    position: absolute;
+    right: 0;
+    top: 40px;
+    background: white;
+    border: 2px solid var(--base-color);
+    border-radius: 15px;
+    padding: 15px;
+    width: 250px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    z-index: 100;
+}
+
+body.darkmode .sort-dropdown {
+    background: var(--box-color);
+    border-color: var(--text-color);
+}
+
+.sort-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 5px 0;
+}
+
+.sort-row .sort-label {
+    color: var(--text-main, black) !important;
+}
+
+body.darkmode .sort-row .sort-label {
+    color: var(--text-color) !important;
+}
+
+.custom-select-wrapper {
+    position: relative;
+    width: 120px;
+}
+
+.custom-select-trigger {
+    width: 100%;
+    padding: 8px 12px;
+    background: #fff;
+    border: 2px solid var(--base-color);
+    border-radius: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    font-family: 'Pattaya', 'ThaiPattaya', sans-serif;
+    color: var(--base-color);
+}
+
+body.darkmode .custom-select-trigger {
+    background: var(--box-color);
+    border-color: var(--text-color);
+    color: var(--text-color);
+}
+
+.custom-select-trigger:hover {
+    background-color: var(--hover-color);
+    color: var(--base-color);
+}
+
+body.darkmode .custom-select-trigger:hover {
+    color: var(--text-color);
+}
+
+.custom-select-trigger i {
+    color: var(--base-color);
+}
+
+body.darkmode .custom-select-trigger i {
+    color: var(--text-color);
+}
+
+.custom-options {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: #fff;
+    border: 2px solid var(--base-color);
+    border-top: none;
+    border-radius: 0 0 10px 10px;
+    z-index: 101;
+    overflow: hidden;
+}
+
+body.darkmode .custom-options {
+    background: var(--box-color);
+    border-color: var(--text-color);
+}
+
+.custom-option {
+    padding: 8px 12px;
+    cursor: pointer;
+    font-size: 14px;
+    color: var(--text-main, black);
+}
+
+body.darkmode .custom-option {
+    color: var(--text-color);
+}
+
+.custom-option:hover {
+    background-color: var(--hover-color);
+    color: var(--base-color);
+}
+
+body.darkmode .custom-option:hover {
+    color: var(--text-color);
+}

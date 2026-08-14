@@ -1,0 +1,192 @@
+:root{
+  --base-color: #800002;
+  --text-color: white;
+  --background-pc-theme: #FFF3C9;
+  --hover-color: rgb(128, 0, 2, 0.7);
+  --box-shadow-color: rgb(0, 0, 0, 0.7);
+  --background-mobile-theme:#FFF3C9;
+  --border-bottom-color: rgba(255,255,255,0.2);
+  --option-color: #ff696b;
+  --black-color: black;
+  --grey-color: #bababa;
+  --brown-color: #7d4e2d;
+  --red-coloer: #a80a0a;
+}
+body.darkmode{
+  --base-color: #3D4459;
+  --box-color: #3D4459;
+  --red-main: #3D4459;
+  --text-color: white;
+  --background-pc-theme: #FFF3C9;
+  --hover-color: rgba(87, 96, 130, 0.7);
+  --box-shadow-color: rgb(0, 0, 0, 0.7);
+  --background-mobile-theme:#FFF3C9;
+  --border-bottom-color: rgba(255,255,255,0.2);
+  --option-color: #2d3241;
+  --black-color: black;
+  --grey-color: #bababa;
+  --brown-color: #2f387f;
+  --red-coloer: #69c4cb;
+}
+
+body.darkmode .search-container {
+  background-color: var(--box-color);
+}
+
+body.darkmode .search-label,
+body.darkmode .search-input {
+  color: var(--text-color);
+}
+.container-main{
+    margin: 0 2rem;
+}
+.search-container {
+    display: flex;
+    align-items: center;
+    background-color: var(--text-color);
+    border: 2px solid var(--base-color);
+    border-radius: 15px; 
+    padding: 5px 15px;
+    width: 100%;
+    max-width: 600px; 
+    margin: 40px auto;
+}
+
+.search-label {
+    font-size: 1.5rem;
+    color: var(--black-color);
+    margin-right: 15px;
+    white-space: nowrap;
+}
+
+.search-input {
+    flex: 1; /* ให้ช่อง Input ยืดเต็มพื้นที่ที่เหลือ */
+    border: none;
+    outline: none; /* ลบเส้นขอบเวลาคลิก */
+    font-size: 1.2rem;
+    color: var(--black-color);
+    background: transparent;
+}
+
+/* สีของ Placeholder */
+.search-input::placeholder {
+    color: var(--border-bottom-color);
+    opacity: 1;
+}
+
+.search-button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.search-button i {
+    color: var(--base-color);
+    font-size: 1.5rem;
+}
+.search-input::placeholder {
+    color: var(--grey-color) !important;
+}
+
+
+/* 1. Top Nav Styling */
+.top-nav {
+    display: flex;
+    justify-content: space-between;
+    gap: 5px;
+    margin-bottom: 20px;
+}
+
+.nav-link {
+    text-decoration: none;
+    color: black;
+    border: 1px solid var(--red-main);
+    padding: 5px 8vw;
+    min-width: 80px; 
+    white-space: nowrap;
+    border-radius: 10px;
+    background: white;
+    font-size: 1.2rem;
+    text-align: center;
+}
+
+/* ถ้าอยู่หน้าไหน ให้ใส่ class "active" ที่ลิ้งค์นั้น */
+.nav-link.active {
+    background-color: black;
+    color: white;
+    border-color: black;
+}
+
+body.darkmode .nav-link {
+    border-color: #3D4459;
+    background: rgba(61, 68, 89, 0.2);
+    color: #ffffff;
+}
+
+body.darkmode .nav-link.active {
+    background-color: #3D4459;
+    border-color: #3D4459;
+    color: #ffffff;
+}
+
+@media(max-width: 1024px){
+  .search-label {
+    font-size: 1.2rem;
+  }
+  .search-input {
+    font-size: 1rem;
+  }
+  .search-button i {
+    font-size: 1.2rem;
+  }
+  .nav-link{
+    padding: 5px 7vw;
+  }
+}
+@media(max-width: 768px){
+  .nav-link{
+    padding: 5px 6vw;
+    font-size: 1.1rem;
+  }
+}
+@media(max-width: 500px){
+  .search-container {
+    width: 90%;
+    max-width: none;
+  }
+  .nav-link{
+    padding: 5px 4vw;
+    font-size: 0.8rem;
+  }
+  .top-nav {
+    gap: 1px;
+  }
+  .container-main{
+    margin: 0 0.7rem;
+  }
+}
+@media(max-width: 320px){
+  .search-label {
+    font-size: 1rem;
+  }
+  .search-input {
+    font-size: 0.8rem;
+  }
+  .search-button i {
+    font-size: 1rem;
+  }
+  .nav-link{
+    padding: 5px 0;
+    font-size: 0.8rem;
+  }
+  .top-nav {
+    gap: 0px;
+  }
+  .container-main{
+    margin: 0;
+  }
+} 

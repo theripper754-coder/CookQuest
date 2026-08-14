@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- ============== Meta Tags ============== -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- ============== Page Title ============== -->
+    <title>Self Recipe</title>
+
+    <!-- ============== Font&Icon ============== -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inria+Serif:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=arrow_drop_down" />
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai+Looped:wght@100;200;300;400;500;600;700&family=Inria+Serif:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Pattaya&display=swap" rel="stylesheet">
+    <!-- ============== Start  Stylesheet ============== -->
+    <link rel="stylesheet" href="../../style.css">
+    <link rel="stylesheet" href="../../quest-style.css">
+    <link rel="stylesheet" href="../../assets/css/quest.css">
+    <link rel="stylesheet" href="../../assets/css/q-self.css">
+    <!-- ============== Start  Script ============== -->
+    <script>
+        // Force unregister all Service Workers and clear caches to bypass old cached files
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.getRegistrations().then(registrations => {
+                for (let r of registrations) r.unregister();
+            });
+        }
+        if (window.caches) {
+            caches.keys().then(keys => { for (let key of keys) caches.delete(key); });
+        }
+    </script>
+    <script src="../../assets/js/sidebar.js" defer></script>
+    <script src="../../assets/js/darkmode2press.js" defer></script>
+    <script src="../../assets/js/login.js" defer></script>
+    <script src="../../assets/js/menu-images.js?v=2" defer></script>
+    <script src="../../assets/js/q-detail.js?v=12" defer></script>
+    <script src="../../assets/js/addmenu.js?v=2" defer></script>
+
+</head>
+<body>
+    
+  <!-- ==============nav bar all pages(responsive) ============== -->
+    <nav class="NL">
+        <ul class="sidebar">
+            <li class="head"><a class="linkhref" href="#"><i width="26" height="26" class="fa-solid fa-xmark"></i></a></li>
+            <ul class="link">
+                <li><a class="linkhref" href="../../index.html"><i class="fa-solid fa-house icon"></i><span>Home</span></a></li>
+                <li><a class="linkhref" href="q-all.html"><i class="fa-solid fa-flag icon"></i><span>quest</span></a></li>
+            </ul>
+            <ul class="about">
+                <li><a class="linkhref" href="about.html"><i class="fa-solid fa-circle-info"></i></a></li>
+                <li><a class="linkhref" href="#">
+                    <button id="theme-switch">
+                        <i class="fa-solid fa-sun"></i>
+                        <i class="fa-solid fa-moon"></i>
+                    </button></a>
+                </li>
+            </ul>
+        </ul>
+
+        <ul>
+            
+            <ul class="mainIcon">
+                <li class="menu-button"><i width="26" height="26" class="fa-solid fa-bars"></i></a></li>     
+            </ul>
+            <li class="logo"><a class="linkhref thaipattaya">CookQuest</a></li>
+            <ul class="titlebar">
+                <li class="hideOnMobile"><a class="linkhref" href="../../index.html">Home</a></li>
+                <li class="hideOnMobile"><a class="linkhref" href="q-all.html">quest</a></li>
+            </ul>
+
+            <div class="auth-section" id="auth-section">    
+                <a class="linkhref login-btn" href="login.html" id="login-btn">Login</a>
+
+                <div class="user-profile hidden" id="user-profile">
+                    <i class="fa-solid fa-circle-user user-icon" id="user-icon-trigger"></i>
+                    
+                    <ul class="profile-dropdown hidden" id="profile-dropdown">
+                        <a class="profilehref" href="profile.html">
+                            <li class="dropdown-item">
+                                    <i class="fa-solid fa-user"></i>
+                                    <span>Profile</span>
+                            </li>
+                        </a>
+
+                        <li class="dropdown-item theme-item-container">
+                            <i class="fa-solid fa-circle-half-stroke"></i>
+                            <span>Theme</span>
+                            <div class="theme-selector-wrapper">
+                                <button class="theme-select-trigger" id="theme-select-trigger">
+                                    <span id="current-theme-text">Light</span>
+                                    <i class="fa-solid fa-caret-down"></i>
+                                </button>
+
+                                <div class="theme-options hidden" id="theme-options">
+                                    <div class="theme-option" data-value="light">Light</div>
+                                    <div class="theme-option" data-value="dark">Dark</div>
+                                </div>
+                            </div>
+                            
+                        </li>
+                        <li class="dropdown-item logout-item" id="logout-btn">
+                            <i class="fa-solid fa-right-from-bracket"></i>
+                            <span>Log out</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        
+
+        </ul>
+    </nav>
+  
+    <!-- ==============Self Recipe page content ============== -->
+     <div class="container-main">
+        <div class="search-container">
+            <span class="search-label thai">ค้นหา</span>
+            <input type="text" class="search-input thai" placeholder="ชื่อเมนู, ส่วนผสม">
+            <button class="search-button">
+                <i class="fa-solid fa-magnifying-glass"></i>
+            </button>
+        </div>
+
+        <nav class="top-nav">
+            <a href="q-all.html?tab=all" class="nav-link"><span class="thai">ทั้งหมด</span></a>
+            <a href="q-all.html?tab=pending" class="nav-link"><span class="thai">รอดำเนินการ</span></a>
+            <a href="q-all.html?tab=complete" class="nav-link"><span class="thai">เสร็จสิ้น</span></a>
+            <a href="q-self.html" class="nav-link active"><span class="thai">บันทึกสูตร</span></a>
+        </nav>
+
+        <main class="content-container" id="detail-main">
+            <span class="category-title thai" style="margin-bottom: 15px; padding: 0;">บันทึกสูตรอาหารของคุณ</span>
+            <div style="display: flex; justify-content: center; margin-bottom: 20px;">
+                <button class="btn-add-menu" onclick="openAddMenu()">+</button>
+            </div>
+            <div class="quest-section" id="menuGrid"></div>
+            <!-- ADD POPUP -->
+            <div class="am-overlay hidden" id="amOverlay">
+                <div class="am-popup">
+            
+                <div class="am-popup-header">
+                    <span class="am-popup-title thai">เพิ่มเมนูใหม่</span>
+                    <button class="am-close-btn" onclick="closeAddMenu()"><i class="fa-solid fa-xmark"></i></button>
+                </div>
+            
+                <div class="am-field">
+                    <input type="text" class="am-input" placeholder="ชื่อเมนู" id="amName">
+                </div>
+            
+                <div class="am-upload-main" id="amMainBox" onclick="document.getElementById('amMainFile').click()">
+                    <i class="fa-regular fa-image am-upload-icon" id="amMainIcon"></i>
+                    <span class="am-upload-label thai" id="amMainLabel">เพิ่มไฟล์รูปภาพ</span>
+                    <img class="am-upload-preview hidden" id="amMainPreview" alt="preview">
+                    <input type="file" id="amMainFile" accept="image/*" style="display:none" onchange="previewMainImg(event)">
+                </div>
+                <div class="am-upload-actions hidden" id="amMainActions">
+                    <label class="am-btn-change thai" for="amMainFile"><i class="fa-solid fa-pen"></i> เปลี่ยนรูป</label>
+                    <button class="am-btn-delete thai" onclick="removeMainImg()"><i class="fa-solid fa-trash"></i> ลบรูป</button>
+                </div>
+            
+                <div class="am-row-three">
+                    <div class="am-field">
+                    <input type="number" class="am-input" placeholder="จำนวน (จาน)" id="amQty" min="1">
+                    </div>
+                    <div class="am-field">
+                    <input type="number" class="am-input" placeholder="เวลาเตรียม (นาที)" id="amPrepTime" min="0">
+                    </div>
+                    <div class="am-field">
+                    <input type="number" class="am-input" placeholder="เวลาปรุง (นาที)" id="amCookTime" min="0">
+                    </div>
+                </div>
+            
+
+            
+                <div class="am-section">
+                    <div class="am-sec-header">
+                    <span class="thai">วัตถุดิบ</span>
+                    <button class="am-sec-plus" onclick="amAddIngredient()">+</button>
+                    </div>
+                    <div class="am-sec-body" id="amIngList"></div>
+                </div>
+            
+                <div class="am-section">
+                    <div class="am-sec-header">
+                    <span class="thai">ขั้นตอนการทำ</span>
+                    <button class="am-sec-plus" onclick="amAddStep()">+</button>
+                    </div>
+                    <div class="am-sec-body"><div id="amStepList"></div></div>
+                </div>
+            
+                <div class="am-taste-row">
+                    <span class="am-taste-label">Taste :</span>
+                    <div class="am-taste-stars" id="amTasteStars">
+                    <i class="fa-regular fa-star am-star" data-val="1"></i>
+                    <i class="fa-regular fa-star am-star" data-val="2"></i>
+                    <i class="fa-regular fa-star am-star" data-val="3"></i>
+                    <i class="fa-regular fa-star am-star" data-val="4"></i>
+                    <i class="fa-regular fa-star am-star" data-val="5"></i>
+                    </div>
+                </div>
+            
+                <div class="am-taste-tags" id="amTasteTags">
+                    <button class="am-ttag thai">หวาน</button>
+                    <button class="am-ttag thai">เค็ม</button>
+                    <button class="am-ttag thai">เปรี้ยว</button>
+                    <button class="am-ttag thai">ขม</button>
+                    <button class="am-ttag thai">อูมามิ</button>
+                    <button class="am-ttag thai">เผ็ด</button>
+                </div>
+            
+                <div class="am-field">
+                    <textarea class="am-input am-textarea thai" placeholder="รสชาติอาหารของคุณเป็นอย่างไรบ้าง" id="amReview" rows="2"></textarea>
+                </div>
+            
+                <div class="am-bottom-row">
+                    <button class="am-btn-submit thai" onclick="amSubmit()">Add</button>
+                    <button class="am-btn-cancel thai" onclick="closeAddMenu()">Cancel</button>
+                </div>
+            
+                </div>
+            </div>
+            
+            <!-- VIEW POPUP -->
+            <div class="am-overlay hidden" id="viewOverlay">
+                <div class="am-popup">
+            
+                <div class="am-popup-header">
+                    <span class="am-popup-title thai" id="viewTitle"></span>
+                    <div style="display: flex; gap: 10px; align-items: center;">
+                        <button class="am-close-btn" style="color:var(--primary-color); font-size:1.2rem;" id="btnEditMenu" title="แก้ไข"><i class="fa-solid fa-pen"></i></button>
+                        <button class="am-close-btn" style="color:red; font-size:1.2rem;" id="btnDeleteMenu" title="ลบ"><i class="fa-solid fa-trash"></i></button>
+                        <button class="am-close-btn" onclick="closeViewMenu()"><i class="fa-solid fa-xmark"></i></button>
+                    </div>
+                </div>
+            
+                <div id="viewImgWrap" class="hidden">
+                    <img class="view-main-img" id="viewImg" alt="menu">
+                </div>
+            
+                <div class="view-info-row" id="viewInfoRow">
+                    <span class="view-info-item thai" id="viewQtyInfo"></span>
+                    <span class="view-info-item thai" id="viewPrepTimeInfo"></span>
+                    <span class="view-info-item thai" id="viewCookTimeInfo"></span>
+                </div>
+            
+                <div id="viewIngSection" class="hidden">
+                    <div class="am-section">
+                    <div class="am-sec-header"><span class="thai">วัตถุดิบ</span></div>
+                    <div class="am-sec-body" id="viewIngList"></div>
+                    </div>
+                </div>
+
+                <div id="viewStepSection" class="hidden">
+                    <div class="am-section">
+                    <div class="am-sec-header"><span class="thai">ขั้นตอนการทำ</span></div>
+                    <div class="am-sec-body" id="viewStepList"></div>
+                    </div>
+                </div>
+            
+                <div id="viewTasteSection" class="hidden">
+                    <div class="am-taste-row">
+                    <span class="am-taste-label">Taste :</span>
+                    <div class="am-taste-stars" id="viewTasteStars"></div>
+                    </div>
+                    <div class="am-taste-tags" id="viewTasteTags"></div>
+                </div>
+            
+                <div id="viewReviewSection" class="hidden">
+                    <div class="view-review-box thai" id="viewReviewText"></div>
+                </div>
+            
+                </div>
+            </div>
+        </main>
+
+</body>
+</html>

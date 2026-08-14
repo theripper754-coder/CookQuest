@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- ============== Meta Tags ============== -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- ============== Page Title ============== -->
+    <title>Edit Profile</title>
+
+    <!-- ============== Font&Icon ============== -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inria+Serif:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=arrow_drop_down" />
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai+Looped:wght@100;200;300;400;500;600;700&family=Inria+Serif:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Pattaya&display=swap" rel="stylesheet">
+    <!-- ============== Start  Stylesheet ============== -->
+    <link rel="stylesheet" href="../../style.css">
+    <link rel="stylesheet" href="../../assets/css/profile-edit.css">
+    <!-- ============== Start  Script ============== -->
+    <script src="../../assets/js/sidebar.js" defer></script>
+    <script src="../../assets/js/darkmode2press.js" defer></script>
+    <script src="../../assets/js/login.js" defer></script>
+    <script src="../../assets/js/profile-edit.js" defer></script>
+
+</head>
+<body>
+    
+  <!-- ==============nav bar all pages(responsive) ============== -->
+    <nav class="NL">
+        <ul class="sidebar">
+            <li class="head"><a class="linkhref" href="#"><i width="26" height="26" class="fa-solid fa-xmark"></i></a></li>
+            <ul class="link">
+                <li><a class="linkhref" href="../../index.html"><i class="fa-solid fa-house icon"></i><span>Home</span></a></li>
+                <li><a class="linkhref" href="q-all.html"><i class="fa-solid fa-flag icon"></i><span>quest</span></a></li>
+            </ul>
+            <ul class="about">
+                <li><a class="linkhref" href="about.html"><i class="fa-solid fa-circle-info"></i></a></li>
+                <li><a class="linkhref" href="#">
+                    <button id="theme-switch">
+                        <i class="fa-solid fa-sun"></i>
+                        <i class="fa-solid fa-moon"></i>
+                    </button></a>
+                </li>
+            </ul>
+        </ul>
+
+        <ul>
+            
+            <ul class="mainIcon">
+                <li class="menu-button"><i width="26" height="26" class="fa-solid fa-bars"></i></a></li>     
+            </ul>
+            <li class="logo"><a class="linkhref thaipattaya">CookQuest</a></li>
+            <ul class="titlebar">
+                <li class="hideOnMobile"><a class="linkhref" href="../../index.html">Home</a></li>
+                <li class="hideOnMobile"><a class="linkhref" href="q-all.html">quest</a></li>
+            </ul>
+
+            <div class="auth-section" id="auth-section">    
+                <a class="linkhref login-btn" href="login.html" id="login-btn">Login</a>
+
+                <div class="user-profile hidden" id="user-profile">
+                    <i class="fa-solid fa-circle-user user-icon" id="user-icon-trigger"></i>
+                    
+                    <ul class="profile-dropdown hidden" id="profile-dropdown">
+                        <a class="profilehref" href="profile.html">
+                            <li class="dropdown-item">
+                                    <i class="fa-solid fa-user"></i>
+                                    <span>Profile</span>
+                            </li>
+                        </a>
+
+                        <li class="dropdown-item theme-item-container">
+                            <i class="fa-solid fa-circle-half-stroke"></i>
+                            <span>Theme</span>
+                            <div class="theme-selector-wrapper">
+                                <button class="theme-select-trigger" id="theme-select-trigger">
+                                    <span id="current-theme-text">Light</span>
+                                    <i class="fa-solid fa-caret-down"></i>
+                                </button>
+
+                                <div class="theme-options hidden" id="theme-options">
+                                    <div class="theme-option" data-value="light">Light</div>
+                                    <div class="theme-option" data-value="dark">Dark</div>
+                                </div>
+                            </div>
+                            
+                        </li>
+                        <li class="dropdown-item logout-item" id="logout-btn">
+                            <i class="fa-solid fa-right-from-bracket"></i>
+                            <span>Log out</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        
+
+        </ul>
+    </nav>
+  
+    <!-- ==============Profile Edit page content ============== -->
+    <main class="container">
+        
+        <h1 class="page-title">Profile details</h1>
+
+        <section class="profile-header">
+            <div class="avatar-wrapper">
+                <i class="fa-solid fa-circle-user avatar-icon"></i>
+            </div>
+            
+        </section>
+
+        <section class="form-section">
+            
+            <div class="input-group">
+                <label>Username</label>
+                <div class="input-row">
+                    <input type="text" id="username" value="eartttpy" readonly>
+                    <button class="btn-edit" data-target="username">Edit</button>
+                </div>
+            </div>
+
+            <div class="input-group">
+                <label>Email</label>
+                <div class="input-row">
+                    <input type="email" id="email" value="eartttpy1@gmail.com" readonly>
+                    <button class="btn-edit" data-target="email">Edit</button>
+                </div>
+                <!-- Inline OTP container for email change -->
+                <div id="email-otp-container" class="hidden" style="margin-top: 10px; display: flex; flex-direction: column; gap: 10px;">
+                    <div style="display: flex; gap: 15px; width: 100%;">
+                        <input type="text" id="email-otp" placeholder="Enter OTP sent to new email" style="flex-grow: 1;">
+                        <button class="btn-action" id="btn-confirm-email-otp" style="min-width: 80px;">Confirm</button>
+                    </div>
+                    <div id="email-otp-ref-wrapper" class="hidden" style="font-size: 0.85rem; color: #555; text-align: left;">
+                        Reference Code: <span id="email-otp-ref-code" style="background-color: #ffa954; color: white; padding: 2px 8px; border-radius: 4px; font-weight: bold; font-family: monospace;"></span>
+                    </div>
+                    <button class="btn-action" id="btn-resend-email-otp" style="align-self: flex-start; min-width: 100px; font-size: 0.85rem; padding: 5px 10px;">Resend OTP</button>
+                </div>
+            </div>
+
+            <div class="input-group">
+                <label>Password</label>
+                <div class="input-row">
+                    <input type="password" id="password-placeholder" value="••••••••" readonly>
+                    <button class="btn-edit" id="btn-change-password">Change</button>
+                </div>
+            </div>
+
+            <!-- Hidden container for password changing -->
+            <div id="password-change-fields" class="hidden password-fields">
+                <div class="input-group">
+                    <label>New Password</label>
+                    <div class="input-row password-wrapper">
+                        <input type="password" id="new-password" placeholder="Enter new password">
+                        <i class="fa-regular fa-eye-slash toggle-password-icon" id="toggle-new-password"></i>
+                    </div>
+                </div>
+                <div class="input-group" id="otp-container">
+                    <label>Enter OTP from Email</label>
+                    <div class="input-row">
+                        <input type="text" id="password-otp" placeholder="Enter 6-digit OTP">
+                        <button class="btn-action" id="btn-send-otp">Send OTP</button>
+                    </div>
+                    <div id="password-otp-ref-wrapper" class="hidden" style="margin-top: 5px; font-size: 0.85rem; color: #555; text-align: left;">
+                        Reference Code: <span id="password-otp-ref-code" style="background-color: #ffa954; color: white; padding: 2px 8px; border-radius: 4px; font-weight: bold; font-family: monospace;"></span>
+                    </div>
+                </div>
+                <div class="button-group">
+                    <button class="btn-submit" id="btn-submit-password">Submit Password Change</button>
+                    <button class="btn-cancel" id="btn-cancel-password">Cancel</button>
+                </div>
+            </div>
+
+        </section>
+
+        <!-- <section class="stats-section">
+            <h3 class="section-title"><i class="fa-solid fa-star"></i> Overall Goal</h3>
+            
+            <div class="cards-container">
+                <div class="card">
+                    <span class="number">0</span>
+                    <span class="label">Complete</span>
+                </div>
+                <div class="card">
+                    <span class="number">0</span>
+                    <span class="label">In progress</span>
+                </div>
+            </div>
+        </section> -->
+
+        <section class="about-section">
+            <a href="about.html" class="section-title"><i class="fa-solid fa-circle-info"></i> About me</a>
+        </section>
+
+    </main>
+  
+</body>
+</html>

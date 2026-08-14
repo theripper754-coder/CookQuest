@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- ============== Meta Tags ============== -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- ============== Page Title ============== -->
+    <title>View All Profile</title>
+
+    <!-- ============== Font&Icon ============== -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inria+Serif:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined">
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai+Looped:wght@100;200;300;400;500;600;700&family=Inria+Serif:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Pattaya&display=swap" rel="stylesheet">
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="../../style.css?v=6">
+    <link rel="stylesheet" href="../../assets/css/profile.css?v=6">
+    <link rel="stylesheet" href="../../assets/css/profile-view.css?v=11">
+    <link rel="stylesheet" href="../../quest-style.css">
+    <link rel="stylesheet" href="../../assets/css/quest.css">
+
+    <!-- JS -->
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="../../assets/js/sidebar.js" defer></script>
+    <script src="../../assets/js/darkmode2press.js" defer></script>
+    <script src="../../assets/js/login.js" defer></script>
+    <script src="../../assets/js/menu-images.js?v=2" defer></script>
+    <script src="../../assets/js/profile.js?v=2" defer></script>
+    <script src="../../assets/js/q-detail.js?v=12" defer></script>
+    <script>
+        // Force unregister all Service Workers and clear caches to bypass old cached files
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.getRegistrations().then(registrations => {
+                for (let r of registrations) r.unregister();
+            });
+        }
+        if (window.caches) {
+            caches.keys().then(keys => { for (let key of keys) caches.delete(key); });
+        }
+    </script>
+
+</head>
+
+<body>
+
+<!-- ==============nav bar all pages(responsive) ============== -->
+    <nav class="NL">
+        <ul class="sidebar">
+            <li class="head"><a class="linkhref" href="#"><i width="26" height="26" class="fa-solid fa-xmark"></i></a></li>
+            <ul class="link">
+                <li><a class="linkhref" href="../../index.html"><i class="fa-solid fa-house icon"></i><span>Home</span></a></li>
+                <li><a class="linkhref" href="q-all.html"><i class="fa-solid fa-flag icon"></i><span>quest</span></a></li>
+            </ul>
+            <ul class="about">
+                <li><a class="linkhref" href="about.html"><i class="fa-solid fa-circle-info"></i></a></li>
+                <li><a class="linkhref" href="#">
+                    <button id="theme-switch">
+                        <i class="fa-solid fa-sun"></i>
+                        <i class="fa-solid fa-moon"></i>
+                    </button></a>
+                </li>
+            </ul>
+        </ul>
+
+        <ul>
+            
+            <ul class="mainIcon">
+                <li class="menu-button"><i width="26" height="26" class="fa-solid fa-bars"></i></a></li>     
+            </ul>
+            <li class="logo"><a class="linkhref thaipattaya">CookQuest</a></li>
+            <ul class="titlebar">
+                <li class="hideOnMobile"><a class="linkhref" href="../../index.html">Home</a></li>
+                <li class="hideOnMobile"><a class="linkhref" href="q-all.html">quest</a></li>
+            </ul>
+
+            <div class="auth-section" id="auth-section">    
+                <a class="linkhref login-btn" href="login.html" id="login-btn">Login</a>
+
+                <div class="user-profile hidden" id="user-profile">
+                    <i class="fa-solid fa-circle-user user-icon" id="user-icon-trigger"></i>
+                    
+                    <ul class="profile-dropdown hidden" id="profile-dropdown">
+                        <a class="profilehref" href="profile.html">
+                            <li class="dropdown-item">
+                                    <i class="fa-solid fa-user"></i>
+                                    <span>Profile</span>
+                            </li>
+                        </a>
+
+                        <li class="dropdown-item theme-item-container">
+                            <i class="fa-solid fa-circle-half-stroke"></i>
+                            <span>Theme</span>
+                            <div class="theme-selector-wrapper">
+                                <button class="theme-select-trigger" id="theme-select-trigger">
+                                    <span id="current-theme-text">Light</span>
+                                    <i class="fa-solid fa-caret-down"></i>
+                                </button>
+
+                                <div class="theme-options hidden" id="theme-options">
+                                    <div class="theme-option" data-value="light">Light</div>
+                                    <div class="theme-option" data-value="dark">Dark</div>
+                                </div>
+                             </div>
+                            
+                        </li>
+                        <li class="dropdown-item logout-item" id="logout-btn">
+                            <i class="fa-solid fa-right-from-bracket"></i>
+                            <span>Log out</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        
+
+        </ul>
+    </nav>
+
+<!-- PROFILE -->
+<div class="perf-view profile-page">
+
+<div class="profile-container">
+
+    <div class="profile-header">
+        <div class="profile-header-shine" aria-hidden="true"></div>
+        <div class="profile-header-ring" aria-hidden="true"></div>
+
+        <div class="profile-avatar" aria-hidden="true">
+            <i class="fa-solid fa-circle-user"></i>
+        </div>
+
+        <div class="user-info">
+            <h2 id="profile-username">Loading...</h2>
+            <button type="button" class="edit-btn" onclick="window.location.href='profile-edit.html'">
+                <i class="fa-solid fa-pen" aria-hidden="true"></i>
+                <span>Edit Profile</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- STATS -->
+    <div class="stats">
+
+        <div class="card level profile-stat-card profile-stat-card--level">
+
+            <p class="stat-kicker thai">ระดับ</p>
+            <p class="stat-label" id="profile-level">Loading...</p>
+            <h3 class="stat-value" id="profile-rank">Loading...</h3>
+            <span class="stat-xp" id="profile-xp">...</span>
+
+            <div class="xp-bar profile-xp-bar">
+                <div class="xp-bar-fill"></div>
+            </div>
+
+            <!-- LEVEL INFO TOOLTIP (Shows when hovering over the card) -->
+            <div class="level-info-tooltip">
+                <div class="tooltip-content">
+                    <div class="tooltip-section">
+                        <h4>Rank Progression</h4>
+                        <p>Here is how your EXP unlocks each rank.</p>
+                        <div class="rank-progression">
+                            <div class="rank-item">
+                                <span class="rank-badge" id="rank-bronze">BRONZE</span>
+                                <span class="rank-xp">0-1500 EXP</span>
+                            </div>
+                            <div class="rank-item">
+                                <span class="rank-badge" id="rank-silver">SILVER</span>
+                                <span class="rank-xp">1501-3000 EXP</span>
+                            </div>
+                            <div class="rank-item">
+                                <span class="rank-badge" id="rank-gold">GOLD</span>
+                                <span class="rank-xp">3001-5000 EXP</span>
+                            </div>
+                            <div class="rank-item">
+                                <span class="rank-badge" id="rank-platinum">PLATINUM</span>
+                                <span class="rank-xp">5001-8000 EXP</span>
+                            </div>
+                            <div class="rank-item">
+                                <span class="rank-badge" id="rank-diamond">DIAMOND</span>
+                                <span class="rank-xp">8001-12000 EXP</span>
+                            </div>
+                            <div class="rank-item">
+                                <span class="rank-badge" id="rank-master">MASTER</span>
+                                <span class="rank-xp">12001+ EXP</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card recipe profile-stat-card profile-stat-card--recipe">
+
+            <p class="stat-kicker">
+                <i class="fa-solid fa-star" aria-hidden="true"></i>
+                Recipe
+            </p>
+
+            <h1 class="stat-value stat-value--large" id="profile-completed">0</h1>
+
+            <span class="stat-foot">Completed</span>
+
+            <div class="quests-done-row" style="margin-top: 10px; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 8px; display: flex; justify-content: space-between; align-items: center;">
+                <span class="thai" style="opacity: 0.8; font-size: 0.85rem;">เควสที่สำเร็จ (Quests Done)</span>
+                <span id="profile-quests-completed" style="font-weight: bold; color: #FFF3C9; font-size: 1.1rem;">0</span>
+            </div>
+
+            <!-- RECIPE INFO TOOLTIP (Shows when hovering over the card) -->
+            <div class="recipe-info-tooltip">
+                <div class="tooltip-content">
+                    <div class="tooltip-section">
+                        <h4>Completed Recipes</h4>
+                        <p>Cook and submit quests to increase this number! Only approved quests will be counted here.</p>
+                    </div>
+                    <div class="tooltip-section" style="margin-top: 10px; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 10px;">
+                        <h4>Completed Quests</h4>
+                        <p>Unlock all recipes in a quest to complete the entire quest and earn extra EXP!</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- BADGES -->
+    <div class="badges">
+
+        <div class="row">
+            <h3>Badge Collection</h3>
+
+            <span>
+                <a href="profile-view.html">
+                    View All
+                </a>
+            </span>
+        </div>
+
+        <div class="badge-list" id="badge-list">
+            <!-- Badges will be loaded dynamically from the database -->
+        </div>
+
+    </div>
+
+</div>
+
+<div class="profile-page-lower">
+    <div class="tabs profile-tabs">
+        <span class="tab-item active" data-tab="recipes">
+            <i class="fa-solid fa-utensils"></i>
+            Recipes
+        </span>
+        <span class="tab-item" data-tab="favorites">
+            <i class="fa-solid fa-heart"></i>
+            Favorites
+        </span>
+    </div>
+
+    <div class="tab-content active" id="recipes-tab">
+        <div class="recipes-list quest-section" id="recipes-container">
+            <!-- Recipe cards will be populated here -->
+        </div>
+    </div>
+
+    <div class="tab-content" id="favorites-tab">
+        <div class="favorites-list quest-section" id="favorites-container">
+            <!-- Favorite recipe cards will be populated here -->
+        </div>
+    </div>
+</div>
+
+</div><!-- /.perf-view.profile-page -->
+
+<!-- Modal Overlay -->
+            <div id="questModal" class="modal-overlay hidden">
+                <div class="modal-content">
+                    <button class="close-modal" id="closeModal">&times;</button>
+
+                    <!-- Header: ชื่อ + ดาว -->
+                    <div class="modal-header">
+                        <h2 class="thaipattaya modal-title">สเต็กหมู</h2>
+                        <i class="fa-regular fa-star modal-star"></i>
+                    </div>
+
+                    <!-- รูปหลัก -->
+                    <img src="../../assets/img/steak1.png" alt="steak" class="modal-main-img">
+
+                    <!-- Tags -->
+                    <div class="modal-tags">
+                        <span class="modal-tag">เมนูหมู</span>
+                        <span class="modal-tag">เมนูเนื้อวัว</span>
+                        <span class="modal-tag">เมนูอาหารจานเดียว</span>
+                        <span class="modal-tag modal-tag-more">...</span>
+                    </div>
+
+                    <!-- Info -->
+                    <p class="modal-info thai">จำนวน : 1 จาน</p>
+                    <p class="modal-info thai">เวลาเตรียม: 30 นาที | เวลาปรุง: 15 นาที</p>
+
+                    <!-- Dropdown: วัตถุดิบ -->
+                    <details class="modal-dropdown">
+                        <summary class="thai">
+                            <span>วัตถุดิบและส่วนผสม</span>
+                            <i class="fa-solid fa-chevron-down modal-chevron"></i>
+                        </summary>
+                        <div class="ingredient-list">
+                            <div class="ing-item"><span class="thai">สันคอหมู หรือ เนื้อ</span><span>1 ชิ้น</span></div>
+                            <div class="ing-item"><span class="thai">โรสแมรี่สด</span><span>1 ก้าน</span></div>
+                            <div class="ing-item"><span class="thai">ใบไทม์อบแห้ง</span><span>1 หยิบมือ</span></div>
+                            <div class="ing-item"><span class="thai">เกลือ</span><span class="thai">เล็กน้อย</span></div>
+                            <div class="ing-item"><span class="thai">เนยสด</span><span>1 ช้อนโต๊ะ</span></div>
+                            <div class="ing-item"><span class="thai">น้ำมันมะกอก (สำหรับหมัก)</span><span>1/2 ช้อนชา</span></div>
+                            <div class="ing-item"><span class="thai">น้ำมันมะกอก</span><span>1 ช้อนโต๊ะ</span></div>
+                            <div class="ing-item"><span class="thai">พริกไทย</span><span class="thai">เล็กน้อย</span></div>
+                        </div>
+                    </details>
+
+                    <!-- Dropdown: ขั้นตอน -->
+                    <details class="modal-dropdown">
+                        <summary class="thai">
+                            <span>ขั้นตอนการทำ</span>
+                            <i class="fa-solid fa-chevron-down modal-chevron"></i>
+                        </summary>
+                        <div class="step-list">
+                            <div class="step-item">
+                                <div class="step-num-badge">1</div>
+                                <div class="step-body">
+                                    <p class="thai">หมักหมูหรือเนื้อด้วยใบไทม์, พริกไทย, น้ำมันมะกอก</p>
+                                    <p class="thai">ใส่น้ำมันมะกอกในกระทะ รอให้น้ำมันร้อนแล้วนำหมูลงเชียในกระทะ</p>
+                                    <p class="step-tip thai"><strong>Tip:</strong> ก่อนนำหมูลงกระทะให้โรยเกลือ, พริกไทยเล็กน้อย</p>
+                                    <img src="../../assets/img/s1.jpg" alt="step 1" class="step-img">
+                                </div>
+                            </div>
+                            <div class="step-item">
+                                <div class="step-num-badge">2</div>
+                                <div class="step-body">
+                                    <p class="thai">พอเนื้อสัตว์ด้านล่างเริ่มสุกนิดๆ สโรสแมรี่ลงไป</p>
+                                    <img src="../../assets/img/s2.jpg" alt="step 2" class="step-img">
+                                </div>
+                            </div>
+                            <div class="step-item">
+                                <div class="step-num-badge">3</div>
+                                <div class="step-body">
+                                    <p class="thai">ใส่เนยเพื่อเพิ่มความหอม โรยเกลือ พริกไทยเล็กน้อย</p>
+                                    <img src="../../assets/img/s3.jpg" alt="step 3" class="step-img">
+                                </div>
+                            </div>
+                            <div class="step-item">
+                                <div class="step-num-badge">4</div>
+                                <div class="step-body">
+                                    <p class="thai">พอเนื้อสัตว์เริ่มสุกให้กลับด้านแล้ว ใช้ช้อนตักน้ำมันราดลงไปบนเนื้อสัตว์ โรยเกลือ พริกไทย อีกครั้ง</p>
+                                    <p class="step-tip thai"><strong>Tip:</strong> ตอนกลับด้านให้โรสแมรี่อยู่ด้านล่างจะหอมมาก</p>
+                                    <img src="../../assets/img/s4.jpg" alt="step 4" class="step-img">
+                                </div>
+                            </div>
+                            <div class="step-item">
+                                <div class="step-num-badge">5</div>
+                                <div class="step-body">
+                                    <p class="thai">รอจนสุกก็สามารถใส่จานเสิร์ฟได้เลย</p>
+                                    <p class="step-tip thai"><strong>Tip:</strong> หากหมูหรือเนื้อชิ้นใหญ่แบบในรูปข้างในยังไม่สุก ให้นำไปอบในเตาอบไฟ 180 สัก 10 นาที</p>
+                                    <img src="../../assets/img/s5.jpg" alt="step 5" class="step-img">
+                                </div>
+                            </div>
+                            <div class="step-item">
+                                <div class="step-num-badge">6</div>
+                                <div class="step-body">
+                                    <p class="thai">เสิร์ฟพร้อมมันบด ผักต้ม และมะเขือเทศย่าง (ในจานนี้เป็นเนื้อวัว)</p>
+                                    <img src="../../assets/img/s6.jpg" alt="step 6" class="step-img">
+                                </div>
+                            </div>
+                        </div>
+                    </details>
+
+
+                    <!-- Quest Zone -->
+                    <div class="modal-quest-zone">
+                        <h3 class="thaipattaya modal-quest-title">Quest</h3>
+                        <p class="modal-quest-desc thai">ถ่ายรูป 2 นิ้วกับอาหารของคุณ</p>
+
+                        <!-- Upload -->
+                        <div class="upload-box" id="uploadBox" onclick="document.getElementById('questFileInput').click()">
+                            <i class="fa-regular fa-image upload-icon" id="uploadIcon"></i>
+                            <span class="thai" id="uploadLabel">เพิ่มไฟล์รูปภาพ</span>
+                            <img id="uploadPreview" class="upload-preview hidden" alt="preview">
+                            <input type="file" id="questFileInput" accept="image/*" style="display:none;" onchange="previewUpload(event)">
+                        </div>
+                        <div class="upload-actions hidden" id="uploadActions">
+                            <label class="btn-change-img thai" for="questFileInput">
+                                <i class="fa-solid fa-pen"></i> เปลี่ยนรูป
+                            </label>
+                            <button class="btn-delete-img thai" onclick="removeUpload()">
+                                <i class="fa-solid fa-trash"></i> ลบรูป
+                            </button>
+                        </div>
+
+                        <!-- Taste Rating -->
+                        <div class="taste-rating">
+                            <span class="taste-label">Taste :</span>
+                            <div class="taste-stars" id="tasteStars">
+                                <i class="fa-regular fa-star taste-star" data-val="1"></i>
+                                <i class="fa-regular fa-star taste-star" data-val="2"></i>
+                                <i class="fa-regular fa-star taste-star" data-val="3"></i>
+                                <i class="fa-regular fa-star taste-star" data-val="4"></i>
+                                <i class="fa-regular fa-star taste-star" data-val="5"></i>
+                            </div>
+                        </div>
+
+                        <!-- Taste Tags -->
+                        <div class="taste-tags" id="tasteTags">
+                            <button class="taste-tag thai" data-taste="หวาน">หวาน</button>
+                            <button class="taste-tag thai" data-taste="เค็ม">เค็ม</button>
+                            <button class="taste-tag thai" data-taste="เปรี้ยว">เปรี้ยว</button>
+                            <button class="taste-tag thai" data-taste="ขม">ขม</button>
+                            <button class="taste-tag thai" data-taste="อูมามิ">อูมามิ</button>
+                            <button class="taste-tag thai" data-taste="เผ็ด">เผ็ด</button>
+                        </div>
+
+                        <!-- Review Input -->
+                        <textarea class="modal-review thai" placeholder="รสชาติอาหารของคุณเป็นอย่างไรบ้าง" rows="2" id="reviewText"></textarea>
+
+                        <!-- Bottom Buttons + EXP -->
+                        <div class="modal-submit-row">
+                            <button class="btn-history thai">ประวัติการทำ</button>
+                            <button class="btn-submit thai">Submit</button>
+                        </div>
+                        <div class="modal-xp-bar">
+                            <i class="fa-solid fa-star xp-star"></i>
+                            <span>200 EXP</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- ─── History Modal ─── -->
+            <div class="modal-overlay hidden" id="historyModal">
+                <div class="modal-content history-modal-content">
+                    
+                    <!-- Header -->
+                    <div class="history-header">
+                    <span class="thaipattaya history-title">ประวัติการทำ</span>
+                    <button class="close-modal" id="closeHistoryModal">✕</button>
+                    </div>
+
+                    <!-- Accordion: Quest 1 (collapsed by default) -->
+                    <details class="history-item" id="historyItem1">
+                    <summary class="history-summary">
+                        <div class="history-summary-left">
+                        <span class="inria-serif history-quest-name">Quest 1</span>
+                        <span class="history-badge pending">Pending ...</span>
+                        </div>
+                        <i class="fa-solid fa-chevron-down history-chevron"></i>
+                    </summary>
+
+                    <!-- Expanded content -->
+                    <div class="history-body">
+                        <p class="thai history-desc">ถ่ายรูป 2 นิ้วกับอาหารของคุณ</p>
+
+                        <!-- History photo: เปลี่ยนได้ตอน edit, ลบไม่ได้ -->
+                        <div class="history-photo-wrap">
+                            <img src="../../assets/img/test.jpg" 
+                                alt="submitted" class="history-photo" id="historyPhoto1">
+                        </div>
+
+                        <!-- ปุ่มเปลี่ยนรูป (ซ่อนตอน view mode) -->
+                        <div class="history-photo-actions hidden" id="historyPhotoActions1">
+                            <label class="btn-change-img thai" for="historyFileInput1">
+                                <i class="fa-solid fa-pen"></i> เปลี่ยนรูป
+                            </label>
+                            <input type="file" id="historyFileInput1" accept="image/*" 
+                                style="display:none"
+                                onchange="changeHistoryPhoto(event, 1)">
+                        </div>
+
+                        <!-- Taste Rating (read-only / editable) -->
+                        <div class="taste-rating">
+                        <span class="taste-label">Taste :</span>
+                        <div class="taste-stars" id="historyTasteStars1">
+                            <i class="fa-solid fa-star taste-star active" data-val="1" style="color:#FFD700; pointer-events:none"></i>
+                            <i class="fa-solid fa-star taste-star active" data-val="2" style="color:#FFD700; pointer-events:none"></i>
+                            <i class="fa-solid fa-star taste-star active" data-val="3" style="color:#FFD700; pointer-events:none"></i>
+                            <i class="fa-regular fa-star taste-star" data-val="4" style="pointer-events:none"></i>
+                            <i class="fa-regular fa-star taste-star" data-val="5" style="pointer-events:none"></i>
+                        </div>
+                        </div>
+
+                        <!-- Taste Tags (read-only / editable) -->
+                        <div class="taste-tags" id="historyTasteTags1">
+                        <button class="taste-tag thai disabled" data-taste="หวาน">หวาน</button>
+                        <button class="taste-tag thai selected disabled" data-taste="เค็ม">เค็ม</button>
+                        <button class="taste-tag thai disabled" data-taste="เปรี้ยว">เปรี้ยว</button>
+                        <button class="taste-tag thai disabled" data-taste="ขม">ขม</button>
+                        <button class="taste-tag thai selected disabled" data-taste="อูมามิ">อูมามิ</button>
+                        <button class="taste-tag thai disabled" data-taste="เผ็ด">เผ็ด</button>
+                        </div>
+
+                        <!-- Review text (read-only mode) -->
+                        <div class="history-review-wrap" id="historyReviewWrap1">
+                        <p class="history-review-text thai" id="historyReviewText1">อร่อยกลมกล่อม หวานนิดนึงจะดีมาก</p>
+                        <textarea class="modal-review thai hidden" id="historyReviewInput1" rows="2">อร่อยกลมกล่อม หวานนิดนึงจะดีมาก</textarea>
+                        </div>
+
+                        <!-- Buttons -->
+                        <div class="history-btn-row" id="historyBtnRow1">
+                        <!-- View mode: Edit button -->
+                        <div class="history-view-actions" id="historyViewActions1">
+                            <button class="btn-edit-history thai" onclick="enterEditMode(1)">Edit</button>
+                        </div>
+                        <!-- Edit mode: Save + Cancel -->
+                        <div class="history-edit-actions hidden" id="historyEditActions1">
+                            <button class="btn-submit thai" onclick="saveHistoryEdit(1, null, this)">Save</button>
+                            <button class="btn-cancel-history thai" onclick="cancelEditMode(1)">Cancel</button>
+                        </div>
+                        </div>
+                    </div>
+                    </details>
+                </div>
+            </div>
+
+    <!-- Badge Modal Overlay -->
+    <div id="badgeModal" class="badge-modal-overlay hidden" role="dialog" aria-modal="true" aria-labelledby="modalBadgeName">
+        <div class="badge-modal-content">
+            <button type="button" id="closeBadgeModal" class="badge-modal-close" aria-label="Close">&times;</button>
+            <div id="modalBadgeIcon" class="badge-modal-icon-slot"></div>
+            <h2 id="modalBadgeName" class="badge-modal-name"></h2>
+            <p id="modalBadgeDesc" class="badge-modal-desc thai"></p>
+            <div id="modalBadgeStatus" class="badge-modal-status"></div>
+        </div>
+    </div>
+
+</body>
+</html>

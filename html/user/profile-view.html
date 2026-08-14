@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- ============== Meta Tags ============== -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- ============== Page Title ============== -->
+    <title>Performance & Badges</title>
+
+    <!-- ============== Font&Icon ============== -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inria+Serif:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=arrow_drop_down" />
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai+Looped:wght@100;200;300;400;500;600;700&family=Inria+Serif:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Pattaya&display=swap" rel="stylesheet">
+    
+    <!-- ============== Start  Stylesheet ============== -->
+    <link rel="stylesheet" href="../../style.css?v=7">
+    <link rel="stylesheet" href="../../assets/css/profile.css?v=7"> <!-- Re-use profile container styles -->
+    <link rel="stylesheet" href="../../assets/css/profile-view.css?v=10">
+    <link rel="stylesheet" href="../../quest-style.css">
+    <link rel="stylesheet" href="../../assets/css/quest.css">
+    <style>
+        /* Nuclear Specificity: Force Navbar colors to remain correct in dark mode */
+        body.darkmode .NL {
+            border-bottom: 3px solid #ffffff !important;
+        }
+        body.darkmode .NL, body.darkmode .NL a, 
+        body.darkmode .NL i, body.darkmode .NL span, 
+        body.darkmode .NL div, body.darkmode .NL li {
+            color: #ffffff !important;
+        }
+    </style>
+    <!-- ============== Start  Script ============== -->
+    <script>
+        // Force unregister all Service Workers and clear caches to bypass old cached files
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.getRegistrations().then(registrations => {
+                for (let r of registrations) r.unregister();
+            });
+        }
+        if (window.caches) {
+            caches.keys().then(keys => { for (let key of keys) caches.delete(key); });
+        }
+    </script>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="../../assets/js/sidebar.js" defer></script>
+    <script src="../../assets/js/darkmode2press.js" defer></script>     
+    <script src="../../assets/js/login.js" defer></script>
+    <script src="../../assets/js/badge-logic.js"></script>
+    <script src="../../assets/js/profile-view.js" defer></script>
+
+</head>
+<body>
+    
+<!-- ==============nav bar all pages(responsive) ============== -->
+    <nav class="NL">
+        <ul class="sidebar">
+            <li class="head"><a class="linkhref" href="#"><i width="26" height="26" class="fa-solid fa-xmark"></i></a></li>
+            <ul class="link">
+                <li><a class="linkhref" href="../../index.html"><i class="fa-solid fa-house icon"></i><span>Home</span></a></li>
+                <li><a class="linkhref" href="q-all.html"><i class="fa-solid fa-flag icon"></i><span>quest</span></a></li>
+            </ul>
+            <ul class="about">
+                <li><a class="linkhref" href="about.html"><i class="fa-solid fa-circle-info"></i></a></li>
+                <li><a class="linkhref" href="#">
+                    <button id="theme-switch">
+                        <i class="fa-solid fa-sun"></i>
+                        <i class="fa-solid fa-moon"></i>
+                    </button></a>
+                </li>
+            </ul>
+        </ul>
+
+        <ul>
+            
+            <ul class="mainIcon">
+                <li class="menu-button"><i width="26" height="26" class="fa-solid fa-bars"></i></a></li>     
+            </ul>
+            <li class="logo"><a class="linkhref thaipattaya">CookQuest</a></li>
+            <ul class="titlebar">
+                <li class="hideOnMobile"><a class="linkhref" href="../../index.html">Home</a></li>
+                <li class="hideOnMobile"><a class="linkhref" href="q-all.html">quest</a></li>
+            </ul>
+
+            <div class="auth-section" id="auth-section">    
+                <a class="linkhref login-btn" href="login.html" id="login-btn">Login</a>
+
+                <div class="user-profile hidden" id="user-profile">
+                    <i class="fa-solid fa-circle-user user-icon" id="user-icon-trigger"></i>
+                    
+                    <ul class="profile-dropdown hidden" id="profile-dropdown">
+                        <a class="profilehref" href="profile.html">
+                            <li class="dropdown-item">
+                                    <i class="fa-solid fa-user"></i>
+                                    <span>Profile</span>
+                            </li>
+                        </a>
+
+                        <li class="dropdown-item theme-item-container">
+                            <i class="fa-solid fa-circle-half-stroke"></i>
+                            <span>Theme</span>
+                            <div class="theme-selector-wrapper">
+                                <button class="theme-select-trigger" id="theme-select-trigger">
+                                    <span id="current-theme-text">Light</span>
+                                    <i class="fa-solid fa-caret-down"></i>
+                                </button>
+
+                                <div class="theme-options hidden" id="theme-options">
+                                    <div class="theme-option" data-value="light">Light</div>
+                                    <div class="theme-option" data-value="dark">Dark</div>
+                                </div>
+                             </div>
+                            
+                        </li>
+                        <li class="dropdown-item logout-item" id="logout-btn">
+                            <i class="fa-solid fa-right-from-bracket"></i>
+                            <span>Log out</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        
+
+        </ul>
+    </nav>
+
+    <!-- ==============Profile view all page content ============== -->
+    <main class="profile-container perf-view">
+
+        <header class="view-header">
+            <div class="view-header-text">
+                <p class="view-eyebrow thai">โปรไฟล์ของคุณ</p>
+                <h1 class="view-title">
+                    <i class="fa-solid fa-chart-pie header-icon" aria-hidden="true"></i>
+                    Performance &amp; Badges
+                </h1>
+                <p class="view-subtitle thai">ติดตามเลเวล เควสที่ผ่าน และเหรียญที่ปลดล็อก</p>
+            </div>
+            <a href="profile.html" class="back-link">
+                <i class="fa-solid fa-arrow-left" aria-hidden="true"></i>
+                <span>Back to Profile</span>
+            </a>
+        </header>
+
+        <section class="perf-section" aria-labelledby="level-heading">
+            <h2 id="level-heading" class="visually-hidden">Level progress</h2>
+            <div class="level-box">
+                <div class="level-box-shine" aria-hidden="true"></div>
+                <div class="level-box-ring" aria-hidden="true"></div>
+                <div class="level-avatar" aria-hidden="true">
+                    <i class="fa-solid fa-circle-user"></i>
+                </div>
+                <div class="level-info">
+                    <p class="level-kicker thai">ระดับปัจจุบัน</p>
+                    <h2 class="level-heading" id="view-level-title">Loading...</h2>
+                    <div class="xp-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" id="xp-progress">
+                        <div class="xp-fill"></div>
+                    </div>
+                    <div class="xp-meta">
+                        <span class="xp-label thai">Experience</span>
+                        <span class="xp-text" id="view-xp-text">...</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="perf-section" aria-labelledby="activity-heading">
+            <div class="section-intro">
+                <h2 id="activity-heading" class="section-heading">
+                    <i class="fa-solid fa-chart-line header-icon" aria-hidden="true"></i>
+                    Activity History
+                </h2>
+                <p class="section-desc thai">จำนวนการส่งเมนูสะสมตามเวลา <span style="color:#800002;font-weight:600;">— อนุมัติแล้ว</span> และ <span style="color:#c0392b;font-weight:600;opacity:0.8;">— ถูกปฏิเสธ (Rejected)</span></p>
+            </div>
+            <div class="chart-box">
+                <canvas id="progressChart" aria-label="Activity history chart"></canvas>
+            </div>
+        </section>
+
+        <section class="perf-section quests-section" aria-labelledby="quests-heading">
+            <div class="section-intro">
+                <h2 id="quests-heading" class="section-heading">
+                    <i class="fa-solid fa-trophy header-icon" aria-hidden="true"></i>
+                    Completed Quests
+                </h2>
+                <p class="section-desc thai">รายการเควสที่คุณทำสำเร็จทั้งหมด</p>
+            </div>
+            <div class="completed-quests-list" id="view-completed-quests" style="margin-top: 15px; display: flex; flex-wrap: wrap; gap: 10px;">
+                <!-- Completed quests names will be rendered here -->
+            </div>
+        </section>
+
+        <section class="perf-section badges-section" aria-labelledby="badges-heading">
+            <div class="section-intro section-intro--badges">
+                <div>
+                    <h2 id="badges-heading" class="section-heading">
+                        <i class="fa-solid fa-medal header-icon" aria-hidden="true"></i>
+                        Badge Collection
+                    </h2>
+                    <p class="section-desc thai">แตะเหรียญเพื่อดูรายละเอียด</p>
+                </div>
+                <span class="badge-count-pill" id="badge-count" hidden>0 / 0</span>
+            </div>
+            <div class="badge-grid" id="view-badge-grid">
+                <!-- Badges loaded dynamically -->
+            </div>
+        </section>
+
+    </main>
+
+    <div id="badgeModal" class="badge-modal-overlay hidden" role="dialog" aria-modal="true" aria-labelledby="modalBadgeName">
+        <div class="badge-modal-content">
+            <button type="button" id="closeBadgeModal" class="badge-modal-close" aria-label="Close">&times;</button>
+            <div id="modalBadgeIcon" class="badge-modal-icon-slot"></div>
+            <h2 id="modalBadgeName" class="badge-modal-name"></h2>
+            <p id="modalBadgeDesc" class="badge-modal-desc thai"></p>
+            <div id="modalBadgeStatus" class="badge-modal-status"></div>
+        </div>
+    </div>
+
+
+</body>
+</html>

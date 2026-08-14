@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Forgot Password</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inria+Serif:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai+Looped:wght@100;200;300;400;500;600;700&family=Inria+Serif:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Pattaya&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <link rel="stylesheet" href="../../style.css">
+    <link rel="stylesheet" href="../../assets/css/login.css">
+
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="../../assets/js/sidebar.js" defer></script>
+    <script src="../../assets/js/darkmode2press.js" defer></script>
+    <script src="../../assets/js/forgot-password.js" defer></script>
+</head>
+<body>
+    <nav class="NL">
+        <ul class="sidebar">
+            <li class="head"><a class="linkhref" href="#"><i width="26" height="26" class="fa-solid fa-xmark"></i></a></li>
+            <ul class="link">
+                <li><a class="linkhref" href="../../index.html"><i class="fa-solid fa-house icon"></i><span>Home</span></a></li>
+                <li><a class="linkhref" href="q-all.html"><i class="fa-solid fa-flag icon"></i><span>quest</span></a></li>
+            </ul>
+            <ul class="about">
+                <li><a class="linkhref" href="about.html"><i class="fa-solid fa-circle-info"></i></a></li>
+                <li><a class="linkhref" href="#">
+                    <button id="theme-switch">
+                        <i class="fa-solid fa-sun"></i>
+                        <i class="fa-solid fa-moon"></i>
+                    </button></a>
+                </li>
+            </ul>
+        </ul>
+
+        <ul>
+            <ul class="mainIcon">
+                <li class="menu-button"><i width="26" height="26" class="fa-solid fa-bars"></i></li>
+            </ul>
+            <li class="logo"><a class="linkhref thaipattaya">CookQuest</a></li>
+            <ul class="titlebar">
+                <li class="hideOnMobile"><a class="linkhref" href="../../index.html">Home</a></li>
+                <li class="hideOnMobile"><a class="linkhref" href="q-all.html">quest</a></li>
+            </ul>
+        </ul>
+    </nav>
+
+    <main>
+        <div class="wrapper">
+            <div class="infobox">
+                <h1>Forgot Password</h1>
+                <br>
+
+                <div class="inputbox">
+                    <input type="text" id="identity-input" required>
+                    <label>Username or Email</label>
+                </div>
+                <br>
+                <div class="buttonbox">
+                    <button type="button" onclick="requestResetOtp()">Send OTP</button>
+                </div>
+                <br>
+
+                <div class="inputbox">
+                    <input type="text" id="otp-input" required>
+                    <label>OTP</label>
+                </div>
+                <div id="forgot-ref-wrapper" class="hidden" style="margin: 10px 0; text-align: left; font-size: 0.9rem; color: var(--base-color);">
+                    Reference Code: <span id="forgot-ref-code" style="background-color: #ffa954; color: white; padding: 2px 8px; border-radius: 4px; font-weight: bold; font-family: monospace;"></span>
+                </div>
+                <br>
+                <div class="inputbox" style="position: relative;">
+                    <input type="password" id="new-password-input" required style="padding-right: 35px;">
+                    <label>New Password</label>
+                    <i class="fa-regular fa-eye-slash" id="togglePassword" style="position: absolute; right: 10px; bottom: 8px; cursor: pointer; color: #888; font-size: 1.25rem; z-index: 10;"></i>
+                </div>
+                <br>
+                <div class="buttonbox">
+                    <button type="button" onclick="resetPassword()">Reset Password</button>
+                </div>
+                <br>
+
+                <div class="login-register">
+                    <a href="./login.html" id="signup-login">Back to Login</a>
+                </div>
+            </div>
+        </div>
+    </main>
+</body>
+</html>
